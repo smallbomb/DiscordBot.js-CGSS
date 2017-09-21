@@ -21,7 +21,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
   let prefix = cert.prefix;
-  if (message.author.bot) return;
+  if (message.author.bot || message.channel.type !== "text") return;
   else if (!message.content.startsWith(prefix)) {
     fs.access(__dirname + '/commands/secret/secret.js', function (err) {
       if (!err) {
