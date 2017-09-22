@@ -14,7 +14,8 @@ module.exports = async function (client, message) {
           else;
         })
         .catch(console.error);
-    } else if (message.content.split(" ")[1] === "-f") {
+    }
+    else if (message.content.split(" ")[1] === "-f") {
       await message.channel.fetchMessages({
           limit: new Number(message.content.split(" ")[2] === undefined ? 10 : message.content.split(" ")[2])
         })
@@ -24,7 +25,8 @@ module.exports = async function (client, message) {
           msg_array.map(m => m.delete().catch(console.error));
         })
         .catch(console.error);
-    } else {
+    }
+    else {
       Help();
       return;
     };
@@ -34,11 +36,11 @@ module.exports = async function (client, message) {
 
 
   function Help() {
-    message.author.send(
+    message.channel.send(
       "```\n" +
       "command cleanall\n" +
       "  cleanall [-f [nums]]\n" +
-      "     nums: default 10\n"+
+      "     nums: default 10\n" +
       "```"
     );
   }
