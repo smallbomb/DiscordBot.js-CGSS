@@ -12,7 +12,6 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag} !`);
   client.user.setPresence({
     afk: false,
-    status: "online",
     game: {
       name: "デレステ"
     }
@@ -22,20 +21,22 @@ client.on('ready', () => {
 client.on('message', message => {
   let prefix = cert.prefix;
   if (message.author.bot || message.channel.type !== "text") return;
-  else if (!message.content.startsWith(prefix)) {
+  else {
     fs.access(__dirname + '/commands/secret/secret.js', function (err) {
       if (!err) {
         let secret = require('./commands/secret/secret.js');
         secret(client, message);
       }
-      else 
+      else
         console.log(err);
     });
-    return;
   }
 
-  message.content = message.content.slice(prefix.length, message.content.length);
-  client.messagesParse(message);
+  if (!message.content.startsWith(prefix)) return;
+  else {
+    message.content = message.content.slice(prefix.length);
+    client.messagesParse(message);
+  }
 });
 
 // // Create an event listener for messages
