@@ -12,22 +12,24 @@ module.exports = function (client, message) {
           url: message.content.split(" ")[3] === undefined ? undefined : message.content.split(" ")[3]
         }
       });
-    } else if (parameter === "invisible") {
+    }
+    else if (parameter === "invisible") {
       client.user.setPresence({
         status: "invisible"
       });
-    } else {
-      Help();
+    }
+    else {
+      Help(message);
     }
   }
-
-  function Help() {
-    message.author.send(
-      "```\n" +
-      "command setpresence\n" +
-      "  game [gamename] [gameURL]\n" +
-      "  invisible\n" +
-      "```"
-    );
-  }
 };
+
+function Help(message) {
+  message.channel.send(
+    "```\n" +
+    "command " + message.content.split(" ")[0] + "\n" +
+    "  game [gamename [gameURL]]\n" +
+    "  invisible\n" +
+    "```"
+  );
+}

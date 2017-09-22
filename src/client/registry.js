@@ -13,7 +13,8 @@ registry = function (clinet, path) {
           clinet.commandarray.push(temparray);
         }
       });
-    } else
+    }
+    else
       console.log(err);
   });
 }
