@@ -11,9 +11,9 @@ class Client extends discord.Client {
       let command = message.content.split(" ")[0];
       for (let i = 0; i < this.commandarray.length; i++) {
         if (command.toLowerCase() === this.commandarray[i].commandname.toLowerCase()) {
-          let exec = require(this.commandarray[i].path);
-          exec(this, message);
-          delete require.cache[require.resolve(this.commandarray[i].path)]
+          let Run = require(this.commandarray[i].path);
+          Run(this, message);
+          delete require.cache[require.resolve(this.commandarray[i].path)];
           break;
         }
       }
