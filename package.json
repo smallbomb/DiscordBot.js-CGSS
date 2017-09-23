@@ -9,6 +9,7 @@
   "author": "smallbomb",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^11.2.1"
+    "discord.js": "^11.2.1",
+    "images": "^3.0.1"
   }
 }

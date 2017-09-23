@@ -27,8 +27,8 @@ client.on('message', message => {
         let secret = require('./commands/secret/secret.js');
         secret(client, message);
       }
-      else
-        console.log(err);
+      // else
+      //   console.log(err);
     });
   }
 
