@@ -8,7 +8,7 @@ module.exports = function (client, message) {
   if ((ask = LotsOption(message)) == undefined)
     return;
   lots = GetLots(ask, lots);
-  message.reply("想問: \"" + ask + "\"", {
+  message.channel.send("<@"+ message.author.id + ">" + "想問: \"" + ask + "\"", {
     file: imagedir + lots
   });
 
@@ -34,7 +34,7 @@ function ShowProb(message) {
     "```\n" +
     "簽的機率: \n" +
     "   大凶: " + jsonObj.大凶 + "\n" +
-    "   凶  : " + jsonObj.兇 + "\n" +
+    "   凶  : " + jsonObj.凶 + "\n" +
     "\n" +
     "   小吉: " + jsonObj.小吉 + "\n" +
     "   吉  : " + jsonObj.吉 + "\n" +
@@ -57,7 +57,7 @@ function LotsOption(msg) {
     ShowProb(msg);
     return undefined;
   }
-  return msg.content.slice(msg.content.split(" ")[0].length);
+  return msg.content.slice(msg.content.split(" ")[0].length + 1);
 }
 
 function GetLots(ask, lots) {
