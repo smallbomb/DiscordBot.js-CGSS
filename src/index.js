@@ -5,20 +5,27 @@ const client = new Discord.Client();
 client.registry(__dirname + '/commands/user');
 client.registry(__dirname + '/commands/maneger');
 // === end command file ===
+
 // The token of your bot - https://discordapp.com/developers/applications/me
-const cert = require('./certificate.json');
+var cert = requireUncached('./certificate.json');
 client.login(cert.token);
-client.on('ready', () => {
+// finish
+
+
+client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag} !`);
-  client.user.setPresence({
+  cert = requireUncached('./certificate.json');
+  let newPresenceObj = {
     afk: false,
-    game: {
-      name: "デレステ"
+    game: { 
+      name: cert.prefix + "help" 
     }
-  });
+  }
+  await client.user.setPresence(newPresenceObj);
 });
 
 client.on('message', message => {
+  cert = requireUncached('./certificate.json');
   let prefix = cert.prefix;
   if (message.author.bot || message.channel.type !== "text") return;
   else {
@@ -38,6 +45,15 @@ client.on('message', message => {
     client.messagesParse(message);
   }
 });
+
+function requireUncached(module) {
+  delete require.cache[require.resolve(module)];
+  return require(module);
+}
+
+
+
+
 
 // // Create an event listener for messages
 // client.on('message', message => {
