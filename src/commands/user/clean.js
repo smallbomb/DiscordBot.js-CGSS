@@ -1,18 +1,13 @@
 const ownerID = require('../../certificate.json').ownerID;
+const two_week_milliseconds = 60 * 60 * 24 * 7 * 2 * 1000;
 
 module.exports = async function (client, message) {
   if (message.author.id === ownerID) {
-    message.channel.fetchMessages({
-        limit: new Number(100)
-      })
-      .then(messages => {
-        let msg_array = messages.array();
-        msg_array = msg_array.filter(m => m.author.id === client.user.id && m.id !== message.id);
-        if (msg_array.length == 1) msg_array.map(m => m.delete().catch(console.error));
-        else if (msg_array.length >= 2) message.channel.bulkDelete(msg_array, true);
-        else;
-      })
-      .catch(console.error);
+    let msg_array = await message.channel.fetchMessages({ limit: 100 });
+    msg_array = msg_array.array().filter(old_m => old_m.author.id === client.user.id && old_m.id !== message.id && Date.now() - old_m.createdTimestamp < two_week_seconds);
+    if (msg_array.length == 1) msg_array.map(async m => await m.delete().catch(console.error));
+    else if (msg_array.length >= 2) await message.channel.bulkDelete(msg_array, true).catch(console.error);
+
     await message.delete(1000);
     message.channel.send("clean done");
   }
