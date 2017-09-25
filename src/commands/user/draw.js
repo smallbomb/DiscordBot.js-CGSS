@@ -1,10 +1,26 @@
+// imagedir-path
 const imagedir = "./src/data/images/draw/";
+const bounsSSR_path = imagedir + "BounsSSR/";
+const bounsSR_path = imagedir + "BounsSR/";
+const SSR_path = imagedir + "SSR/";
+const SR_path = imagedir + "SR/";
+const R_path = imagedir + "R/";
+// config-path
 const config_path = "../config_json/draw.json"
+// import images 
+const images = require('images');
 
 module.exports = function (client, message) {
   let card = undefined;
-  card = GetACard("");
+  let user_drawcount = 1;
+  for (let i = 0; i < user_drawcount; i++) {
+    card = GetACard("SSR");
 
+
+
+
+
+  }
 };
 
 function Help(message) {
@@ -23,5 +39,12 @@ function GetACard(str) {
   let SRprob = parseFloat(jsonObj.SRprob) * 100;
   let Rprob = parseFloat(jsonObj.Rprob) * 100; // SSRprob + SRprob + Rprob 1~10000
 
+  let cardType = undefined;
+  if (str === "SSR")
+    cardType = Math.floor(Math.random() * 100 + 15);
+  else if (str === "SR")
+    return;
+  else if (str === "R")
+    return;
   delete require.cache[require.resolve(config_path)];
 }
