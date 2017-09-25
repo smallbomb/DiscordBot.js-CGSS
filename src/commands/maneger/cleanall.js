@@ -1,5 +1,5 @@
 const ownerID = require('../../certificate.json').ownerID;
-const two_week_milliseconds = 60 * 60 * 24 * 7 * 2 * 1000 ;
+const two_week_milliseconds = 60 * 60 * 24 * 7 * 2 * 1000;
 
 module.exports = async function (client, message) {
   if (message.author.id === ownerID) {
@@ -11,12 +11,15 @@ module.exports = async function (client, message) {
       else;
     }
     else if (message.content.split(" ")[1] === "-f") {
-      let msg_array = await message.channel.fetchMessages({ limit: message.content.split(" ")[2] === undefined ? 10 : message.content.split(" ")[2] });
+      let msg_array = await message.channel.fetchMessages({
+        limit: message.content.split(" ")[2] === undefined ? 10 : message.content.split(" ")[2]
+      });
       msg_array = msg_array.array().filter(m => m.id !== message.id);
       msg_array.map(async m => await m.delete().catch(console.error));
     }
     else
       return Help(message);
+
     await message.delete(500);
     message.channel.send("clean done");
   }

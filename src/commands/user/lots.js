@@ -8,7 +8,7 @@ module.exports = function (client, message) {
   if ((ask = LotsOption(message)) == undefined)
     return;
   lots = GetLots(ask, lots);
-  message.channel.send("<@"+ message.author.id + ">" + "想問: \"" + ask + "\"", {
+  message.channel.send("<@" + message.author.id + ">" + "想問: \"" + ask + "\"", {
     file: imagedir + lots
   });
 
@@ -75,15 +75,15 @@ function GetLots(ask, lots) {
   else if (ask === "大吉")
     lots = "大吉.png";
   else if (lotsNumber <= parseInt(jsonObj.大凶))
-    lots = "大凶.png"; 
+    lots = "大凶.png";
   else if (lotsNumber <= parseInt(jsonObj.吉) + parseInt(jsonObj.大凶))
-    lots = "吉.png"; 
+    lots = "吉.png";
   else if (lotsNumber <= parseInt(jsonObj.中吉) + parseInt(jsonObj.吉) + parseInt(jsonObj.大凶))
     lots = "中吉.png";
   else if (lotsNumber <= parseInt(jsonObj.凶) + parseInt(jsonObj.中吉) + parseInt(jsonObj.吉) + parseInt(jsonObj.大凶))
-    lots = "凶.png"; 
+    lots = "凶.png";
   else if (lotsNumber <= parseInt(jsonObj.小吉) + parseInt(jsonObj.凶) + parseInt(jsonObj.中吉) + parseInt(jsonObj.吉) + parseInt(jsonObj.大凶))
-    lots = "小吉.png"; 
+    lots = "小吉.png";
   else if (lotsNumber <= parseInt(jsonObj.大吉) + parseInt(jsonObj.小吉) + parseInt(jsonObj.凶) + parseInt(jsonObj.中吉) + parseInt(jsonObj.吉) + parseInt(jsonObj.大凶))
     lots = "大吉.png";
 

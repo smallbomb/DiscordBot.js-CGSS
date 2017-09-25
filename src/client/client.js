@@ -25,4 +25,3 @@ function MessagesParse(Client, message) {
 }
 
 module.exports = Client;
-
