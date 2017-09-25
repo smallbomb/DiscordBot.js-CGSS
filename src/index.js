@@ -46,6 +46,22 @@ client.on('message', message => {
   }
 });
 
+client.on('debug', info => {
+  console.log(info);
+});
+
+client.on('guildMemberAdd', member => {
+  let firstTextCh = member.guild.channels.filter(c => c.type === "text" && c.permissionsFor(member.guild.me).has("SEND_MESSAGES")).sort((a, b) => a.position - b.position || a.id - b.id).first();
+  if (firstTextCh === undefined) return;
+  firstTextCh.send(`歡迎${member} 進來就別再出去瞜`);
+});
+
+client.on('guildMemberRemove', member => {
+  let firstTextCh = member.guild.channels.filter(c => c.type === "text" && c.permissionsFor(member.guild.me).has("SEND_MESSAGES")).sort((a, b) => a.position - b.position || a.id - b.id).first();
+  if (firstTextCh === undefined) return;
+  firstTextCh.send(`${member} 離開了.....?`);
+});
+
 function requireUncached(module) {
   delete require.cache[require.resolve(module)];
   return require(module);
