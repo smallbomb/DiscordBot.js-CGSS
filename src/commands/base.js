@@ -1,6 +1,6 @@
-module.exports = function (client, message) { 
+module.exports = function (client, message) {
   // your write command code...
-  
+
 };
 
 function Help(message) {
