@@ -3,13 +3,11 @@
   "SRprob": "12.0%",
   "Rprob": "85.0%",
 
-  "path_Bo_SSR": "./src/data/images/draw/BounsSSR/",
-  "path_Bo_SR": "./src/data/images/draw/BounsSR/",
-
-  "default_path_cute": "./src/data/images/draw/cute",
-  "default_path_cool": "./src/data/images/draw/cool",
-  "default_path_passion": "./src/data/images/draw/passion",
-
+  "defaultPath_cute": "./src/data/images/draw/cute",
+  "defaultPath_cool": "./src/data/images/draw/cool",
+  "defaultPath_passion": "./src/data/images/draw/passion",
+  "defaultPath_Bo_SSR": "./src/data/images/draw/BounsSSR/",
+  "defaultPath_Bo_SR": "./src/data/images/draw/BounsSR/",
   "cardpool": [{
       "index": 1,
       "type": "Cute",
