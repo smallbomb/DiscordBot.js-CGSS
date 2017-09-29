@@ -1,21 +1,18 @@
-// imagedir-path
-const imagedir = "./src/data/images/draw/";
-const bounsSSR_path = imagedir + "BounsSSR/";
-const bounsSR_path = imagedir + "BounsSR/";
-const SSR_path = imagedir + "SSR/";
-const SR_path = imagedir + "SR/";
-const R_path = imagedir + "R/";
-// config-path
-const config_path = "../config_json/draw.json"
-// import images 
+const optset = require('getopt-c');
 const images = require('images');
+const jsonObj = requireUncached("../config_json/draw.json");
 
 module.exports = function (client, message) {
   let card = undefined;
-  let user_drawcount = 1;
-  for (let i = 0; i < user_drawcount; i++) {
-    card = GetACard("SSR");
-
+  let userOpt = DrawOtionParser(message);
+  // let images1 = images("./src/data/images/lots/凶.png");
+  // let images2 = images("./src/data/images/lots/大凶.png");
+  // let merge_images = images(images1.width() + 10 + images2.width(), images1.height()).draw(images1, 0, 0).draw(images2, images1.width()+10, 0);
+  // merge_images.save("output.jpg");
+  // return ;
+  for (let i = 0; i < userOption.drawcount; i++) {
+    card = GetACard(userOpt.pool_index, "SSR");
+  
 
 
 
@@ -31,8 +28,7 @@ function Help(message) {
   );
 }
 
-function GetACard(str) {
-  let jsonObj = require(config_path);
+function GetACard(index, str) {
   let BounsSSRprob = parseFloat(jsonObj.BounsSSRprob) * 100;
   let BounsSRprob = parseFloat(jsonObj.BounsSRprob) * 100;
   let SSRprob = parseFloat(jsonObj.SSRprob) * 100;
@@ -46,5 +42,38 @@ function GetACard(str) {
     return;
   else if (str === "R")
     return;
-  delete require.cache[require.resolve(config_path)];
+}
+
+function requireUncached(module) {
+  delete require.cache[require.resolve(module)];
+  return require(module);
+}
+
+function DrawOtionParser(message) {
+  // default value
+  let drawcount = 1;
+  let pool_index = jsonObj.cardpool.length;
+  // =============
+  let parse = optset(("garbage_str " + message.content).split(/ +/g), 'hi:c:');
+  while ((opt = parse.getopt()) !== undefined) {
+    switch (opt.option) {
+      case 'h':
+        Help(message);
+        return undefined;
+      case 'i':
+        pool_index = opt.arg;
+        break;
+      case 'c':
+        drawcount = opt.arg;
+        break;
+      default:
+        Help(message);
+        return undefined;
+    }
+  }
+
+  return {
+    pool_index: pool_index,
+    drawcount: drawcount,
+  };
 }

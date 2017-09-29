@@ -1,9 +1,45 @@
 {
-  "date": "2017/09/27",
-  "cardpoolname": "SSR[ピュア・ユーフォリア]西園寺琴歌", 
-  "BounsSSRprob": "0.75%",
-  "BounsSRprob": "2.4%",
   "SSRprob": "3.0%",
   "SRprob": "12.0%",
-  "Rprob": "85.0%"
+  "Rprob": "85.0%",
+
+  "path_Bo_SSR": "./src/data/images/draw/BounsSSR/",
+  "path_Bo_SR": "./src/data/images/draw/BounsSR/",
+
+  "default_path_cute": "./src/data/images/draw/cute",
+  "default_path_cool": "./src/data/images/draw/cool",
+  "default_path_passion": "./src/data/images/draw/passion",
+
+  "cardpool": [{
+      "index": 1,
+      "type": "Cute",
+      "cardpoolname": "單色池(Cute)"
+    },
+    {
+      "index": 2,
+      "type": "Cool",
+      "cardpoolname": "單色池(Cool)"
+    },
+    {
+      "index": 3,
+      "type": "Passion",
+      "cardpoolname": "單色池(Passion)"
+    },
+    {
+      "index": 4,
+      "type": "Normal",
+      "cardpoolname": "[SSR]仁奈",
+      "date": "2017/09/27",
+      "BounsSSRprob": "0.75%",
+      "BounsSRprob": "2.4%"
+    },
+    {
+      "index": 5,
+      "type": "Special",
+      "cardpoolname": "[SSR]仁奈",
+      "date": "2017/09/27",
+      "BounsSSRprob": "0.75%",
+      "BounsSRprob": "2.4%"
+    }
+  ]
 }
