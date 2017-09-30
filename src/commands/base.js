@@ -1,6 +1,7 @@
-module.exports = function (client, message) { 
+const optset = require('getopt-c'); // if you need it.
+module.exports = function (client, message) {
   // your write command code...
-  
+
 };
 
 function Help(message) {
