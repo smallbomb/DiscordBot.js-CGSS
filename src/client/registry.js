@@ -2,7 +2,8 @@ const fs = require('fs');
 
 registry = function (clinet, path) {
   fs.readdir(path, (err, files) => {
-    if (!err) {
+    if (err) console.log(err);
+    else {
       files.forEach(file => {
         if (file !== undefined) {
           let temparray = {
@@ -13,9 +14,7 @@ registry = function (clinet, path) {
           clinet.commandarray.push(temparray);
         }
       });
-    }
-    else
-      console.log(err);
+    } 
   });
 }
 
