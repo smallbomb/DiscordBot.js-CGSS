@@ -49,7 +49,7 @@ function LotsOption(msg) {
     Help(msg);
     return undefined;
   }
-  else if (msg.content.split(" ")[1] === "-help") {
+  else if (msg.content.split(" ")[1] === "-help" || msg.content.split(" ")[1] === "-h") {
     Help(msg);
     return undefined;
   }

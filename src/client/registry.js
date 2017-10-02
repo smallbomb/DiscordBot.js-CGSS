@@ -14,7 +14,7 @@ registry = function (clinet, path) {
           clinet.commandarray.push(temparray);
         }
       });
-    } 
+    }
   });
 }
 
