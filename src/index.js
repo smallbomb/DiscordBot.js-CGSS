@@ -12,13 +12,13 @@ client.login(cert.token);
 // finish
 
 
-client.on('ready', async () => {
+client.on('ready', async() => {
   console.log(`Logged in as ${client.user.tag} !`);
   cert = requireUncached('./certificate.json');
   let newPresenceObj = {
     afk: false,
-    game: { 
-      name: cert.prefix + "help" 
+    game: {
+      name: cert.prefix + "help"
     }
   }
   await client.user.setPresence(newPresenceObj);
@@ -30,12 +30,11 @@ client.on('message', message => {
   if (message.author.bot || message.channel.type !== "text") return;
   else {
     fs.access(__dirname + '/commands/secret/secret.js', function (err) {
-      if (!err) {
+      if (err) console.log(err);
+      else {
         let secret = require('./commands/secret/secret.js');
         secret(client, message);
       }
-      // else
-      //   console.log(err);
     });
   }
 
@@ -44,10 +43,6 @@ client.on('message', message => {
     message.content = message.content.slice(prefix.length);
     client.messagesParse(message);
   }
-});
-
-client.on('debug', info => {
-  console.log(info);
 });
 
 client.on('guildMemberAdd', member => {
