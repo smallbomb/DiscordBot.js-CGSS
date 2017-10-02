@@ -1,19 +1,20 @@
 const ownerID = require('../../certificate.json').ownerID;
+const prefix = require('../../certificate.json').prefix;
 
 module.exports = function (client, message) {
   if (message.author.id === ownerID) {
     let parameter = message.content.split(" ")[1];
-    if (parameter === "game") {
+    if (parameter === "-game") {
       client.user.setPresence({
         afk: false,
         status: "online",
         game: {
-          name: message.content.split(" ")[2] === undefined ? "デレステ" : message.content.split(" ")[2],
+          name: message.content.split(" ")[2] === undefined ? prefix + "help" : message.content.split(" ")[2],
           url: message.content.split(" ")[3] === undefined ? undefined : message.content.split(" ")[3]
         }
       });
     }
-    else if (parameter === "invisible") {
+    else if (parameter === "-invisible") {
       client.user.setPresence({
         status: "invisible"
       });
@@ -28,8 +29,8 @@ function Help(message) {
   message.channel.send(
     "```\n" +
     "command " + message.content.split(" ")[0] + "\n" +
-    "  game [gamename [gameURL]]\n" +
-    "  invisible\n" +
+    "  -game [gamename [gameURL]]\n" +
+    "  -invisible\n" +
     "```"
   );
 }
