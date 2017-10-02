@@ -29,13 +29,15 @@ client.on('message', message => {
   let prefix = cert.prefix;
   if (message.author.bot || message.channel.type !== "text") return;
   else {
-    fs.access(__dirname + '/commands/secret/secret.js', function (err) {
-      if (err) console.log(err);
-      else {
-        let secret = require('./commands/secret/secret.js');
-        secret(client, message);
-      }
-    });
+    try {
+      fs.accessSync(__dirname + '/commands/secret/secret.js', fs.R_OK | fs.W_OK);
+      let secret = require('./commands/secret/secret.js');
+      secret(client, message);
+      delete require.cache[require.resolve('./commands/secret/secret.js')];
+    }
+    catch(e) {
+      console.log(e);
+    }
   }
 
   if (!message.content.startsWith(prefix)) return;
