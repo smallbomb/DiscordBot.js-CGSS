@@ -13,6 +13,7 @@ module.exports = function (client, message) {
   if ((userOpt = DrawOtionParser(message)) === undefined) return;
   
   cardpool = setCardPool(userOpt.pool_index);
+  return ;
   for (let i = 0; i < userOpt.count; i++) {
     if (i === 9 && !card.find(c => { return c.type === "SSR" || c.type === "SR" })) // check one SR or SSR at least? 
       card.push(GetACard(cardpool, "SR"));
@@ -28,7 +29,7 @@ module.exports = function (client, message) {
 function Help(message) {
   message.channel.send(
     "```\n" +
-    "command " + message.content.split(" ")[0] + "(暫時把計算和紀錄砍掉..回復時間未知,目前只能選單色池1~3)\n" +
+    "command " + message.content.split(" ")[0] + "(暫時把計算和紀錄砍掉..回復時間未知)\n" +
     "   -h       :help\n" +
     "   -c chose :數字, 選一個卡池(default: " + drawJson.cardpool.length + "號卡池)\n" +
     "   -n num   :數字, 數量1~10(default: 10)\n" +
@@ -99,6 +100,8 @@ function setCardPool(index) {
   let path_Bo_SSR = "";
   let path_Bo_SR = "";
   let cardpool = {
+    BO_SSR: undefined,
+    BO_SR: undefined,
     SSR: undefined,
     SR: undefined,
     R: undefined
@@ -119,9 +122,15 @@ function setCardPool(index) {
     cardpool.R = getAllFileName(path_root + drawJson.defaultPath_passion + "R/");
   }
   else if (drawJson.cardpool[i].type === "Normal") {
-    drawJson.defaultPath_cute;
-    drawJson.defaultPath_cool;
-    drawJson.defaultPath_passion;
+    // cardpool.BO_SSR = getAllFileName(path_root + drawJson.defaultPath_Bo_SSR + "R/");
+    // cardpool.BO_SR = getAllFileName(path_root + drawJson.defaultPath_Bo_SR + "R/");
+    cardpool.SSR = getAllFileName(path_root + drawJson.defaultPath_cute + "SSR/");
+    cardpool.SSR.push.apply(cardpool.SSR, getAllFileName(path_root + drawJson.defaultPath_cool + "SSR/"));
+    cardpool.SSR.push.apply(cardpool.SSR, getAllFileName(path_root + drawJson.defaultPath_passion + "SSR/"));
+    console.log(cardpool.SSR);
+    return ;
+    cardpool.SR = getAllFileName(path_root + drawJson.defaultPath_cute + "SR/");
+    cardpool.R = getAllFileName(path_root + drawJson.defaultPath_cute + "R/");
   }
   else if (drawJson.cardpool[i].type === "Special") {
     drawJson.defaultPath_cute;
@@ -162,7 +171,7 @@ function DrawOtionParser(message) {
   }
   // =============
   let N = /^[0-9]*[1-9][0-9]*$/; // N: natural number
-  let parse = optset(("garbage_str " + message.content).split(/ +/g), 'hi:c:i:');
+  let parse = optset(("garbage_str " + message.content).split(/ +/g), 'hc:n:i:');
   while ((opt = parse.getopt()) !== undefined) {
     switch (opt.option) {
       case 'h':
