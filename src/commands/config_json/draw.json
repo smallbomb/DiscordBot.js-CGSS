@@ -5,8 +5,8 @@
   "defaultPath_cute": "/src/data/images/draw/cute/",
   "defaultPath_cool": "/src/data/images/draw/cool/",
   "defaultPath_passion": "/src/data/images/draw/passion/",
-  "defaultPath_Bo_SSR": "/src/data/images/draw/BounsSSR/",
-  "defaultPath_Bo_SR": "/src/data/images/draw/BounsSR/",
+  "defaultPath_bounsSSR": "/src/data/images/draw/bounsSSR/",
+  "defaultPath_bounsSR": "/src/data/images/draw/bounsSR/",
   "cardpool": [{
       "index": 1,
       "type": "Cute",
@@ -24,27 +24,24 @@
     },
     {
       "index": 4,
-      "type": "Normal",
-      "cardpoolname": "[SSR]仁奈",
-      "date": "2017/09/27",
-      "BounsSSRprob": "0.75%",
-      "BounsSRprob": "2.4%"
+      "type": "Special",
+      "date": "2017/09/30",
+      "bounsSSRprob": "0.75%",
+      "bounsSRprob": "2.4%"
     },
     {
       "index": 5,
-      "type": "Special",
-      "cardpoolname": "[SSR]仁奈",
+      "type": "Normal",
       "date": "2017/09/27",
-      "BounsSSRprob": "0.75%",
-      "BounsSRprob": "2.4%"
+      "bounsSSRprob": "0.75%",
+      "bounsSRprob": "2.4%"
     },
     {
       "index": 6,
       "type": "DoubleSpecial",
-      "cardpoolname": "[SSR]仁奈",
       "date": "2017/09/27",
-      "BounsSSRprob": "0.75%",
-      "BounsSRprob": "2.4%"
+      "bounsSSRprob": "0.75%",
+      "bounsSRprob": "2.4%"
     }
   ]
 }
