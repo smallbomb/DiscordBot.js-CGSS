@@ -39,9 +39,8 @@ client.on('message', message => {
       console.log(e);
     }
   }
-
-  if (!message.content.startsWith(prefix)) return;
-  else {
+  
+  if (message.content.startsWith(prefix)) {
     message.content = message.content.slice(prefix.length);
     client.messagesParse(message);
   }
