@@ -9,38 +9,24 @@
   "defaultPath_bounsSR": "/src/data/images/draw/bounsSR/",
   "cardpool": [{
       "index": 1,
-      "type": "Cute",
-      "cardpoolname": "單色池(Cute)"
+      "type": "SingleColor",
+      "name": "Cute"
     },
     {
       "index": 2,
-      "type": "Cool",
-      "cardpoolname": "單色池(Cool)"
+      "type": "SingleColor",
+      "name": "Cool"
     },
     {
       "index": 3,
-      "type": "Passion",
-      "cardpoolname": "單色池(Passion)"
+      "type": "SingleColor",
+      "name": "Passion"
     },
     {
       "index": 4,
       "type": "Special",
       "date": "2017/09/30",
-      "bounsSSRprob": "0.75%",
-      "bounsSRprob": "2.4%"
-    },
-    {
-      "index": 5,
-      "type": "Normal",
-      "date": "2017/09/27",
-      "bounsSSRprob": "0.75%",
-      "bounsSRprob": "2.4%"
-    },
-    {
-      "index": 6,
-      "type": "DoubleSpecial",
-      "date": "2017/09/27",
-      "bounsSSRprob": "0.75%",
+      "bounsSSRprob": "0.8%",
       "bounsSRprob": "2.4%"
     }
   ]
