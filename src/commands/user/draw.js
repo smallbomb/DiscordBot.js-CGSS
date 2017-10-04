@@ -31,10 +31,17 @@ function Help(message) {
     "```\n" +
     "command " + message.content.split(" ")[0] + "(暫時把計算和紀錄砍掉..回復時間未知)\n" +
     "   -h       :help\n" +
-    "   -c chose :數字, 選一個卡池(default: " + drawJson.cardpool.length + "號卡池)\n" +
+    "   -c chose :數字, 選一個卡池1~" + drawJson.cardpool.length + "(default: " + drawJson.cardpool.length + "號卡池)\n" +
     "   -n num   :數字, 數量1~10(default: 10)\n" +
     "   -i info  :卡池資訊\n" +
     "      info  :\"all\" or \"數字編號\"\n" +
+    "\n" +
+    "Example:\n" +
+    "   draw\n" +
+    "   draw -n 7 -c 3\n" +
+    "   draw -i 4\n" +
+    "   draw -c 1\n" +
+    "   draw -i all\n" +
     "```"
   );
 }
@@ -118,20 +125,22 @@ function setCardPool(index) {
     SR: undefined,
     R: undefined
   };
-  if (drawJson.cardpool[i].type === "Cute") {
-    cardpool.SSR = getAllFileName(path_root + drawJson.defaultPath_cute + "SSR/");
-    cardpool.SR = getAllFileName(path_root + drawJson.defaultPath_cute + "SR/");
-    cardpool.R = getAllFileName(path_root + drawJson.defaultPath_cute + "R/");
-  }
-  else if (drawJson.cardpool[i].type === "Cool") {
-    cardpool.SSR = getAllFileName(path_root + drawJson.defaultPath_cool + "SSR/");
-    cardpool.SR = getAllFileName(path_root + drawJson.defaultPath_cool + "SR/");
-    cardpool.R = getAllFileName(path_root + drawJson.defaultPath_cool + "R/");
-  }
-  else if (drawJson.cardpool[i].type === "Passion") {
-    cardpool.SSR = getAllFileName(path_root + drawJson.defaultPath_passion + "SSR/");
-    cardpool.SR = getAllFileName(path_root + drawJson.defaultPath_passion + "SR/");
-    cardpool.R = getAllFileName(path_root + drawJson.defaultPath_passion + "R/");
+  if (drawJson.cardpool[i].type === "SingleColor") {
+    if (drawJson.cardpool[i].name === "Cute") {
+      cardpool.SSR = getAllFileName(path_root + drawJson.defaultPath_cute + "SSR/");
+      cardpool.SR = getAllFileName(path_root + drawJson.defaultPath_cute + "SR/");
+      cardpool.R = getAllFileName(path_root + drawJson.defaultPath_cute + "R/");
+    }
+    else if (drawJson.cardpool[i].name === "Cool") {
+      cardpool.SSR = getAllFileName(path_root + drawJson.defaultPath_cool + "SSR/");
+      cardpool.SR = getAllFileName(path_root + drawJson.defaultPath_cool + "SR/");
+      cardpool.R = getAllFileName(path_root + drawJson.defaultPath_cool + "R/");
+    }
+    else if (drawJson.cardpool[i].name === "Passion") {
+      cardpool.SSR = getAllFileName(path_root + drawJson.defaultPath_passion + "SSR/");
+      cardpool.SR = getAllFileName(path_root + drawJson.defaultPath_passion + "SR/");
+      cardpool.R = getAllFileName(path_root + drawJson.defaultPath_passion + "R/");
+    }
   }
   else {
     if (drawJson.cardpool[i].type === "DoubleSpecial") {
@@ -139,8 +148,8 @@ function setCardPool(index) {
       cardpool.SSRprob *= 2;
     }
     // === bouns SSR/SR prob ===
-    cardpool.bo_SSRprob = parseFloat(drawJson.cardpool[i].bounsSSRprob) * basicbase; 
-    cardpool.bo_SRprob = parseFloat(drawJson.cardpool[i].bounsSRprob) * basicbase; 
+    cardpool.bo_SSRprob = parseFloat(drawJson.cardpool[i].bounsSSRprob) * basicbase;
+    cardpool.bo_SRprob = parseFloat(drawJson.cardpool[i].bounsSRprob) * basicbase;
     // === bouns SR/SR ===
     cardpool.bo_SSR = getAllFileName(path_root + drawJson.defaultPath_bounsSSR + index + "/");
     cardpool.bo_SR = getAllFileName(path_root + drawJson.defaultPath_bounsSR + index + "/");
@@ -156,12 +165,6 @@ function setCardPool(index) {
     cardpool.R = getAllFileName(path_root + drawJson.defaultPath_cute + "R/");
     cardpool.R.push.apply(cardpool.R, getAllFileName(path_root + drawJson.defaultPath_cool + "R/"));
     cardpool.R.push.apply(cardpool.R, getAllFileName(path_root + drawJson.defaultPath_passion + "R/"));
-    // if (drawJson.cardpool[i].type === "Normal") {
-    // }
-    // else if (drawJson.cardpool[i].type === "Special") {
-    // }
-    // else if (drawJson.cardpool[i].type === "DoubleSpecial") {
-    // }
   }
   return cardpool;
 }
@@ -172,8 +175,8 @@ function getAllFileName(path, cardpool) {
   fs.readdirSync(path).forEach(file => {
     if (file === undefined);
     else if (cardpool === undefined)
-      array.push(path + file); 
-    else if (!cardpool.find(pool => {return pool.includes(file)})) 
+      array.push(path + file);
+    else if (!cardpool.find(pool => { return pool.includes(file) }))
       array.push(path + file);
   });
   return array;
@@ -199,22 +202,22 @@ function DrawOtionParser(message) {
         Help(message);
         return undefined;
       case 'c':
-        if (N.test(opt.arg) && opt.arg <= drawJson.cardpool.length) drawOpt.pool_index = parseInt(opt.arg);
+        if (opt.arg !== undefined && N.test(opt.arg) && opt.arg <= drawJson.cardpool.length) drawOpt.pool_index = parseInt(opt.arg);
         else {
           Help(message);
           return undefined;
         }
         break;
       case 'n':
-        if (N.test(opt.arg) && opt.arg <= 10) drawOpt.count = parseInt(opt.arg);
+        if (opt.arg !== undefined && N.test(opt.arg) && opt.arg <= 10) drawOpt.count = parseInt(opt.arg);
         else {
           Help(message);
           return undefined;
         }
         break;
       case 'i':
-        if (opt.arg.toLowerCase() === "all" || (N.test(opt.arg) && opt.arg <= drawJson.cardpool.length))
-          ShowCardPoolInfo(opt.arg);
+        if (opt.arg !== undefined && opt.arg.toLowerCase() === "all" || (N.test(opt.arg) && opt.arg <= drawJson.cardpool.length))
+          ShowCardPoolInfo(message, opt.arg);
         else
           Help(message);
         return undefined;
@@ -227,19 +230,79 @@ function DrawOtionParser(message) {
   return drawOpt;
 }
 
-function ShowCardPoolInfo() {
+function ShowCardPoolInfo(message, arg) {
   let info = "```\n";
-  // index
-  info += "卡池編號: " + drawJson.cardpool[i].index + "\n";
-  // name
-  info += "卡池名稱: " + drawJson.cardpool[i].cardname + "\n";
-  // type
-  if (drawJson.cardpool[i].type === "Normal") info += "卡池類型: 常駐\n";
-  else if (drawJson.cardpool[i].type === "Special") info += "卡池類型: 限定\n";
-  else if (drawJson.cardpool[i].type === "DoubleSpecial") info += "卡池類型: 灰限\n";
-  else info += "卡池類型: " + drawJson.cardpool[i].type + "\n";
-  // date
-  info += "開始時間: " + drawJson.cardpool[i].date + "\n";
+  if (arg.toLowerCase() === "all") {
+    for (let i = 0; i < drawJson.cardpool.length; i++) {
+      if (i !== 0) info += "\n";
+      // index
+      info += "卡池編號: " + drawJson.cardpool[i].index + "\n";
+      // name
+      if (drawJson.cardpool[i].name === undefined) {
+        info += "卡池名稱: "
+        fs.readdirSync(path_root + drawJson.defaultPath_bounsSSR + drawJson.cardpool[i].index + "/").forEach(file => {
+          if (file !== undefined)
+            info += file.slice(0, file.lastIndexOf(".")) + ", ";
+        });
+        info = info.slice(0, info.length - 2) + "\n";
+      }
+      else
+        info += "卡池名稱: " + drawJson.cardpool[i].name + "\n";
+      // date
+      drawJson.cardpool[i].date !== undefined ? info += "開始時間: " + drawJson.cardpool[i].date + "\n" : "";
+      // type
+      if (drawJson.cardpool[i].type === "Normal") info += "卡池類型: 常駐\n";
+      else if (drawJson.cardpool[i].type === "Special") info += "卡池類型: 限定\n";
+      else if (drawJson.cardpool[i].type === "DoubleSpecial") info += "卡池類型: 灰限\n";
+      else if (drawJson.cardpool[i].type === "SingleColor") info += "卡池類型: 單色池\n";
+    }
+  }
+  else {
+    let i = arg - 1;
+    let bo_SSR = [];
+    // date
+    drawJson.cardpool[i].date !== undefined ? info += "開始時間: " + drawJson.cardpool[i].date + "\n" : "";
+    // name
+    if (drawJson.cardpool[i].name === undefined) {
+      info += "卡池名稱: "
+      fs.readdirSync(path_root + drawJson.defaultPath_bounsSSR + drawJson.cardpool[i].index + "/").forEach(file => {
+        if (file !== undefined) {
+          bo_SSR.push(file.slice(0, file.lastIndexOf(".")));
+          info += file.slice(0, file.lastIndexOf(".")) + ", ";
+        }
+      });
+      info = info.slice(0, info.length - 2) + "\n";
+    }
+    else
+      info += "卡池名稱: " + drawJson.cardpool[i].name + "\n";
+    // type
+    if (drawJson.cardpool[i].type === "SingleColor") {
+      info += "卡池類型: 單色池\n";
+      info += "機率: (SSR:" + drawJson.SSRprob + ", SR:" + drawJson.SRprob + ", R:" + drawJson.Rprob + ")\n";
+      if (drawJson.cardpool[i].name === "Cute") SSR = getAllFileName(path_root + drawJson.defaultPath_cute + "SSR/");
+      else if (drawJson.cardpool[i].name === "Cool") SSR = getAllFileName(path_root + drawJson.defaultPath_cool + "SSR/");
+      else if (drawJson.cardpool[i].name === "Passion") SSR = getAllFileName(path_root + drawJson.defaultPath_passion + "SSR/");
+      info += "  SSR一共有" + SSR.length + "張, 故每張SSR機率為" + Math.floor(parseFloat(drawJson.SSRprob) * basicbase / SSR.length) / basicbase + "%\n";
+    }
+    else if (drawJson.cardpool[i].type === "Normal") {
+      info += "卡池類型: 常駐\n";
+      info += "機率: (SSR:" + drawJson.SSRprob + ", SR:" + drawJson.SRprob + ", R:" + drawJson.Rprob + ")\n";
+      for (let j = 0; j < bo_SSR.length; j++)
+        info += "   " + parseFloat(drawJson.cardpool[i].bounsSSRprob) / bo_SSR.length + "% " + bo_SSR[j] + "\n";
+    }
+    else if (drawJson.cardpool[i].type === "Special") {
+      info += "卡池類型: 限定\n";
+      info += "機率: (SSR:" + drawJson.SSRprob + ", SR:" + drawJson.SRprob + ", R:" + drawJson.Rprob + ")\n";
+      for (let j = 0; j < bo_SSR.length; j++)
+        info += "   " + parseFloat(drawJson.cardpool[i].bounsSSRprob) / bo_SSR.length + "% " + bo_SSR[j] + "\n";
+    }
+    else if (drawJson.cardpool[i].type === "DoubleSpecial") {
+      info += "卡池類型: 灰限\n";
+      info += "機率: (SSR:" + drawJson.SSRprob * 2 + ", SR:" + drawJson.SRprob + ", R:" + drawJson.Rprob - drawJson.SSRprob + ")\n";
+      // for (let j = 0; j < bo_SSR.length; j++) 
+      // info += "   " + parseFloat(drawJson.cardpool[i].bounsSSRprob) / bo_SSR.length + "% " + bo_SSR[j] + "\n";
+    }
+  }
   info += "```";
   message.channel.send(info);
 }
