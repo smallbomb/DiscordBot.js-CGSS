@@ -9,5 +9,12 @@ for studying javascript.
   "token": "", // The token of your bot - https://discordapp.com/developers/applications/me
   "prefix":"", // for command
   "ownerID":"" // owner discord ID
+  "game": {
+    "expiry_date": "", // expiry
+    "userID": "", // user ID who has ownership until expiry.
+    "userName": "", // the user name.
+    "name": "", // game name
+    "url": "" // twitch url
+  }
 }
 ```
