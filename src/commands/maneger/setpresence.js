@@ -34,6 +34,7 @@ function Help(message) {
     "  -n, --name gamename\n" +
     "  -u, --url  url\n" +
     "  -i, --invisible\n" +
+    "  -s, --status\n" +
     "  -c, --clean\n" +
     "```"
   );
