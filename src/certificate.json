@@ -1,5 +1,12 @@
 {
   "token": "",
+  "prefix": "~",
   "ownerID": "",
-  "prefix": "~"
+  "game": {
+    "expiry_date": "",
+    "userID": "",
+    "userName": "",
+    "name": "",
+    "url": ""
+  }
 }
