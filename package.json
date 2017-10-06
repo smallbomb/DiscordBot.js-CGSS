@@ -11,6 +11,7 @@
   "dependencies": {
     "discord.js": "^11.2.1",
     "getopt-c": "^1.4.0",
-    "images": "^3.0.1"
+    "images": "^3.0.1",
+    "shell-quote": "^1.6.1"
   }
 }
