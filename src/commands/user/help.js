@@ -27,5 +27,6 @@ Object.defineProperty(Array.prototype, 'group', {
     return Object.keys(map).map(function (k) {
       return {key: k, data: map[k]};
     });
-  }
+  },
+  configurable: true
 });
