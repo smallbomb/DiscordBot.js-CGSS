@@ -1,6 +1,6 @@
 const imagedir = "./src/data/images/lots/";
-const config_path = "../config_json/lots.json"
-const jsonObj = require(config_path);
+const config_path = process.cwd() + "/src/data/config_json/lots.json"
+const jsonObj = requireUncached(config_path);
 
 module.exports = function (client, message) {
   let ask = undefined;
@@ -11,9 +11,12 @@ module.exports = function (client, message) {
   message.channel.send("<@" + message.author.id + ">" + "想問: \"" + ask + "\"", {
     file: imagedir + lots
   });
-
-  delete require.cache[require.resolve(config_path)];
 };
+
+function requireUncached(module) {
+  delete require.cache[require.resolve(module)];
+  return require(module);
+}
 
 function Help(message) {
   message.channel.send(

@@ -1,8 +1,8 @@
 const fs = require('fs');
 const optset = require('getopt-c');
 const images = require('images');
-const drawJson = requireUncached("../config_json/draw.json");
 const path_root = process.cwd();
+const drawJson = requireUncached(path_root + "/src/data/config_json/draw.json");
 const basicbase = 100 // lowest 0.0x%
 
 module.exports = function (client, message) {
