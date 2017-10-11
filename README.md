@@ -1,7 +1,21 @@
 # Discordbot
-A discord chatbot for using js language and discord.js library.
+A discord chatbot that I use js language and discord.js library.
 
-for studying javascript.
+For studying javascript.
+
+# Install
+
+First step
+
+open terminal and cd this folder
+
+Second step
+
+~$ npm install 
+
+Final
+
+~$ node .
 
 # Certificate.json
 ```
