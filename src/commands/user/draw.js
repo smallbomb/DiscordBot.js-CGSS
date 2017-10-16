@@ -31,7 +31,7 @@ function Help(message) {
     "```\n" +
     "command " + message.content.split(" ")[0] + "(暫時把計算和紀錄砍掉..回復時間未知)\n" +
     "   -h       :help\n" +
-    "   -c chose :數字, 選一個卡池1~" + drawJson.cardpool.length + "(default: " + drawJson.cardpool.length + "號卡池)\n" +
+    "   -c choose:數字, 選一個卡池1~" + drawJson.cardpool.length + "(default: " + drawJson.cardpool.length + "號卡池)\n" +
     "   -n num   :數字, 數量1~10(default: 10)\n" +
     "   -i info  :卡池資訊\n" +
     "      info  :\"all\" or \"數字編號\"\n" +

@@ -3,7 +3,7 @@ const fs = require('fs');
 const client = new Discord.Client();
 // === command file ===
 client.registry(__dirname + '/commands/user');
-client.registry(__dirname + '/commands/maneger');
+client.registry(__dirname + '/commands/manager');
 // === end command file ===
 
 // The token of your bot - https://discordapp.com/developers/applications/me
