@@ -4,5 +4,4 @@ node_modules/*
 // edittor
 .vscode/*
 
-// images data
-src/data/images/*
+
