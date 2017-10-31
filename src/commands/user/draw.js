@@ -15,7 +15,9 @@ module.exports = function (client, message) {
 
   cardpool = setCardPool(userOpt.pool_index);
   for (let i = 0; i < userOpt.count; i++) { 
-    if (i === 9 && !card.find(c => {return c.type === "SSR" || c.type === "SR"})) // check one SR or SSR at least? 
+    if (userOpt.bugMode)
+      card.push(GetACard(cardpool, "SSR"));
+    else if (i === 9 && !card.find(c => {return c.type === "SSR" || c.type === "SR"})) // check one SR or SSR at least? 
       card.push(GetACard(cardpool, "SR"));
     else
       card.push(GetACard(cardpool));
@@ -33,11 +35,13 @@ function Help(message) {
     "   -h       :help\n" +
     "   -c choose:數字, 選一個卡池1~" + drawJson.cardpool.length + "(default: " + drawJson.cardpool.length + "號卡池)\n" +
     "   -n num   :數字, 數量1~10(default: 10)\n" +
+    "   -b       :bug mode\n" +
     "   -i info  :卡池資訊\n" +
     "      info  :\"all\" or \"數字編號\"\n" +
     "\n" +
     "Example:\n" +
     "   draw\n" +
+    "   draw -b -c 3\n" +
     "   draw -n 7 -c 3\n" +
     "   draw -i 4\n" +
     "   draw -c 1\n" +
@@ -190,12 +194,13 @@ function requireUncached(module) {
 function DrawOtionParser(message) {
   // default value
   let drawOpt = {
+    bugMode: false,
     pool_index: drawJson.cardpool.length,
     count: 10
   }
   // =============
   let N = /^[0-9]*[1-9][0-9]*$/; // N: natural number
-  let parse = optset(("garbage_str " + message.content).split(/ +/g), 'hc:n:i:');
+  let parse = optset(("garbage_str " + message.content).split(/ +/g), 'hbc:n:i:');
   while ((opt = parse.getopt()) !== undefined) {
     switch (opt.option) {
       case 'h':
@@ -221,6 +226,9 @@ function DrawOtionParser(message) {
         else
           Help(message);
         return undefined;
+      case 'b':
+        drawOpt.bugMode = true;
+        break;
       default:
         Help(message);
         return undefined;
