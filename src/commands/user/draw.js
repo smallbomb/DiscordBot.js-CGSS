@@ -70,6 +70,10 @@ function GetACard(cardpool, str) {
       Card.type = "bounsSSR";
       Card.name = cardpool.bo_SSR[Math.floor(Math.random() * cardpool.bo_SSR.length)]; // bounsSSR
     }
+    else if (cardpool.sp_bo_SSR !== undefined && prob <= cardpool.bo_SSRprob * 2) {
+      Card.type = "double_bounsSSR";
+      Card.name = cardpool.sp_bo_SSR[Math.floor(Math.random() * cardpool.sp_bo_SSR.length)]; // DoubleBo_SSR, only double special pool
+    }
     else {
       Card.type = "SSR";
       Card.name = cardpool.SSR[Math.floor(Math.random() * cardpool.SSR.length)];
@@ -123,6 +127,7 @@ function setCardPool(index) {
     Rprob: parseFloat(drawJson.Rprob) * basicbase,
     bo_SSRprob: 0,
     bo_SRprob: 0,
+    sp_bo_SSR: undefined,
     bo_SSR: undefined,
     bo_SR: undefined,
     SSR: undefined,
@@ -147,10 +152,6 @@ function setCardPool(index) {
     }
   }
   else {
-    if (drawJson.cardpool[i].type === "DoubleSpecial") {
-      cardpool.Rprob -= cardpool.SSRprob;
-      cardpool.SSRprob *= 2;
-    }
     // === bouns SSR/SR prob ===
     cardpool.bo_SSRprob = parseFloat(drawJson.cardpool[i].bounsSSRprob) * basicbase;
     cardpool.bo_SRprob = parseFloat(drawJson.cardpool[i].bounsSRprob) * basicbase;
@@ -169,6 +170,12 @@ function setCardPool(index) {
     cardpool.R = getAllFileName(path_root + drawJson.defaultPath_cute + "R/");
     cardpool.R.push.apply(cardpool.R, getAllFileName(path_root + drawJson.defaultPath_cool + "R/"));
     cardpool.R.push.apply(cardpool.R, getAllFileName(path_root + drawJson.defaultPath_passion + "R/"));
+    // === DoubleSpecial setting ===
+    if (drawJson.cardpool[i].type === "DoubleSpecial") {
+      cardpool.sp_bo_SSR = getAllFileName(path_root + drawJson.defaultPath_doubleSpecialSSR, cardpool.bo_SSR);
+      cardpool.Rprob -= cardpool.SSRprob; 
+      cardpool.SSRprob *= 2; 
+    }
   }
   return cardpool;
 }
@@ -306,9 +313,9 @@ function ShowCardPoolInfo(message, arg) {
     }
     else if (drawJson.cardpool[i].type === "DoubleSpecial") {
       info += "卡池類型: 灰限\n";
-      info += "機率: (SSR:" + drawJson.SSRprob * 2 + ", SR:" + drawJson.SRprob + ", R:" + drawJson.Rprob - drawJson.SSRprob + ")\n";
-      // for (let j = 0; j < bo_SSR.length; j++) 
-      // info += "   " + parseFloat(drawJson.cardpool[i].bounsSSRprob) / bo_SSR.length + "% " + bo_SSR[j] + "\n";
+      info += "機率: (SSR:" + parseFloat(drawJson.SSRprob) * 2 + ".0%, SR:" + drawJson.SRprob + ", R:" + (parseFloat(drawJson.Rprob) - parseFloat(drawJson.SSRprob)) + ".0%)\n";
+      for (let j = 0; j < bo_SSR.length; j++) 
+        info += "   " + parseFloat(drawJson.cardpool[i].bounsSSRprob) / bo_SSR.length + "% " + bo_SSR[j] + "\n";
     }
   }
   info += "```";
