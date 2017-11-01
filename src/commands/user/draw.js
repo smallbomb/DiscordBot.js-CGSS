@@ -33,9 +33,9 @@ function Help(message) {
     "```\n" +
     "command " + message.content.split(" ")[0] + "(暫時把計算和紀錄砍掉..回復時間未知)\n" +
     "   -h       :help\n" +
+    "   -b       :bug mode\n" +
     "   -c choose:數字, 選一個卡池1~" + drawJson.cardpool.length + "(default: " + drawJson.cardpool.length + "號卡池)\n" +
     "   -n num   :數字, 數量1~10(default: 10)\n" +
-    "   -b       :bug mode\n" +
     "   -i info  :卡池資訊\n" +
     "      info  :\"all\" or \"數字編號\"\n" +
     "\n" +
@@ -184,7 +184,7 @@ function getAllFileName(path, cardpool) {
   // if the cardpool include same SSR/SR(bouns) card, it is not added to array
   let array = [];
   fs.readdirSync(path).forEach(file => {
-    if (file === undefined);
+    if (file === undefined || file === ".gitignore");
     else if (cardpool === undefined)
       array.push(path + file);
     else if (!cardpool.find(pool => { return pool.includes(file) }))
