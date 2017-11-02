@@ -21,7 +21,6 @@ module.exports = async function (client, message) {
       return Help(message);
 
     await message.delete(500);
-    message.channel.send("clean done");
   }
 };
 
