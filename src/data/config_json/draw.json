@@ -71,6 +71,13 @@
       "date": "2017/10/31",
       "bounsSSRprob": "0.75%",
       "bounsSRprob": "0%"
+    },
+    {
+      "index": 11,
+      "type": "Special",
+      "date": "2017/11/2",
+      "bounsSSRprob": "0.8%",
+      "bounsSRprob": "2.4%"
     }
   ]
 }
