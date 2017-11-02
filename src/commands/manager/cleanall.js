@@ -12,7 +12,7 @@ module.exports = async function (client, message) {
     }
     else if (message.content.split(" ")[1] === "-f") {
       let msg_array = await message.channel.fetchMessages({
-        limit: message.content.split(" ")[2] === undefined ? 10 : message.content.split(" ")[2]
+        limit: message.content.split(" ")[2] === undefined ? 10 + 1 : message.content.split(" ")[2] + 1
       });
       msg_array = msg_array.array().filter(m => m.id !== message.id);
       msg_array.map(async m => await m.delete().catch(console.error));
