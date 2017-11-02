@@ -12,7 +12,7 @@ client.login(cert.token);
 // finish
 
 
-client.on('ready', async() => {
+client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag} !`);
   cert = requireUncached('./certificate.json');
   let newPresenceObj = {
@@ -21,7 +21,7 @@ client.on('ready', async() => {
       name: cert.prefix + "help"
     }
   }
-  await client.user.setPresence(newPresenceObj);
+  client.user.setPresence(newPresenceObj);
 });
 
 client.on('message', message => {
