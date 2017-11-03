@@ -4,7 +4,7 @@ const images = require('images');
 const path_root = process.cwd();
 const drawJson = requireUncached(path_root + "/src/data/config_json/draw.json");
 const basicbase = 100 // lowest 0.0x%
-
+const testModeCount = 100000;
 module.exports = function (client, message) {
   let card = [];
   let cardpool = undefined;
@@ -14,18 +14,43 @@ module.exports = function (client, message) {
   if ((userOpt = DrawOtionParser(message)) === undefined) return;
 
   cardpool = setCardPool(userOpt.pool_index);
+  
+  if (userOpt.testMode) 
+    userOpt.count = testModeCount;
+
   for (let i = 0; i < userOpt.count; i++) { 
     if (userOpt.bugMode)
       card.push(GetACard(cardpool, "SSR"));
-    else if (i === 9 && !card.find(c => {return c.type === "SSR" || c.type === "SR"})) // check one SR or SSR at least? 
+    else if (!userOpt.testMode && i === 9 && !card.find(c => {return c.type === "SSR" || c.type === "SR"})) // check one SR or SSR at least? 
       card.push(GetACard(cardpool, "SR"));
     else
       card.push(GetACard(cardpool));
   }
-  mergeImageBuffer = MergeCard(card);
-  message.channel.send("<@" + message.author.id + ">", {
-    file: mergeImageBuffer
-  });
+
+  if (userOpt.testMode) {
+    let numOfSSR = 0, numOfSR = 0, numOfR = 0;
+    let numOfboSSR = 0, numOfboSR = 0;
+    for (let i = 0 ; i < testModeCount; i++) {
+      if (card[i].type === "bounsSSR") numOfboSSR++;
+      else if (card[i].type === "SSR" || card[i].type === "double_bounsSSR") numOfSSR++;
+      else if (card[i].type === "bounsSR") numOfboSR++;
+      else if (card[i].type === "SR" || card[i].type === "SR") numOfSR++;
+      else if (card[i].type === "R") numOfR++;
+    }
+    message.channel.send("<@" + message.author.id + ">" +
+      "```\n" +
+      "抽到所有SSR卡共 " + numOfboSSR + numOfSSR + "張" + " ; 抽到本次加成SSR卡 " + numOfboSSR + "張\n" +
+      "抽到所有SR卡共 " + numOfboSR + numOfSR + "張" + " ; 抽到本次加成SR卡 " + numOfboSR + "張\n" +
+      "抽到所有R卡共 " + numOfR + "張\n" + 
+      "```"
+    );
+  }
+  else {
+    mergeImageBuffer = MergeCard(card);
+    message.channel.send("<@" + message.author.id + ">", {
+      file: mergeImageBuffer
+    });
+  }
 };
 
 function Help(message) {
@@ -34,6 +59,7 @@ function Help(message) {
     "command " + message.content.split(" ")[0] + "(暫時把計算和紀錄砍掉..回復時間未知)\n" +
     "   -h       :help\n" +
     "   -b       :bug mode\n" +
+    "   -t       :測試機率用(抽10萬抽，不附圖)\n" +
     "   -c choose:數字, 選一個卡池1~" + drawJson.cardpool.length + "(default: " + drawJson.cardpool.length + "號卡池)\n" +
     "   -n num   :數字, 數量1~10(default: 10)\n" +
     "   -i info  :卡池資訊\n" +
@@ -201,13 +227,14 @@ function requireUncached(module) {
 function DrawOtionParser(message) {
   // default value
   let drawOpt = {
+    testMode: false,
     bugMode: false,
     pool_index: drawJson.cardpool.length,
     count: 10
   }
   // =============
   let N = /^[0-9]*[1-9][0-9]*$/; // N: natural number
-  let parse = optset(("garbage_str " + message.content).split(/ +/g), 'hbc:n:i:');
+  let parse = optset(("garbage_str " + message.content).split(/ +/g), 'hbtc:n:i:');
   while ((opt = parse.getopt()) !== undefined) {
     switch (opt.option) {
       case 'h':
@@ -235,6 +262,9 @@ function DrawOtionParser(message) {
         return undefined;
       case 'b':
         drawOpt.bugMode = true;
+        break;
+      case 't':
+        drawOpt.testMode = true;
         break;
       default:
         Help(message);
