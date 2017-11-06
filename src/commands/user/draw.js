@@ -4,7 +4,7 @@ const images = require('images');
 const path_root = process.cwd();
 const drawJson = requireUncached(path_root + "/src/data/config_json/draw.json");
 const basicbase = 100 // lowest 0.0x%
-const testModeCount = 100000;
+const testModeCount = 1000000;
 module.exports = function (client, message) {
   let card = [];
   let cardpool = undefined;
@@ -16,7 +16,7 @@ module.exports = function (client, message) {
   cardpool = setCardPool(userOpt.pool_index);
   
   if (userOpt.testMode) 
-    userOpt.count = testModeCount;
+    userOpt.count = parseInt(testModeCount);
 
   for (let i = 0; i < userOpt.count; i++) { 
     if (userOpt.bugMode)
@@ -30,7 +30,7 @@ module.exports = function (client, message) {
   if (userOpt.testMode) {
     let numOfSSR = 0, numOfSR = 0, numOfR = 0;
     let numOfboSSR = 0, numOfboSR = 0;
-    for (let i = 0 ; i < testModeCount; i++) {
+    for (let i = 0 ; i < userOpt.count; i++) {
       if (card[i].type === "bounsSSR") numOfboSSR++;
       else if (card[i].type === "SSR" || card[i].type === "double_bounsSSR") numOfSSR++;
       else if (card[i].type === "bounsSR") numOfboSR++;
@@ -39,9 +39,10 @@ module.exports = function (client, message) {
     }
     message.channel.send("<@" + message.author.id + ">" +
       "```\n" +
-      "抽到所有SSR卡共 " + numOfboSSR + numOfSSR + "張" + " ; 抽到本次加成SSR卡 " + numOfboSSR + "張\n" +
-      "抽到所有SR卡共 " + numOfboSR + numOfSR + "張" + " ; 抽到本次加成SR卡 " + numOfboSR + "張\n" +
-      "抽到所有R卡共 " + numOfR + "張\n" + 
+      "抽到所有SSR卡共 " + addThousandComma(numOfboSSR + numOfSSR) + "張(約" + (Math.floor((numOfboSSR + numOfSSR) / userOpt.count * 1000000) / 10000) + "%)" + " ; 抽到本次加成SSR卡 " + addThousandComma(numOfboSSR) + "張(約" + (Math.floor(numOfboSSR / userOpt.count * 1000000) / 10000) + "%)\n" +
+      "抽到所有SR卡共 " + addThousandComma(numOfboSR + numOfSR) + "張(約" + (Math.floor((numOfboSR + numOfSR) / userOpt.count * 1000000) / 10000) + "%)" + " ; 抽到本次加成SR卡 " + addThousandComma(numOfboSR) + "張(約" + (Math.floor(numOfboSR / userOpt.count * 1000000) / 10000) + "%)\n" +
+      "抽到所有R卡共 " + addThousandComma(numOfR) + "張(約" + (Math.floor(numOfR / userOpt.count * 1000000) / 10000) + "%)\n" +
+      "\n共" + addThousandComma(numOfboSSR + numOfSSR + numOfboSR + numOfSR + numOfR) + "張\n" +
       "```"
     );
   }
@@ -59,7 +60,7 @@ function Help(message) {
     "command " + message.content.split(" ")[0] + "(暫時把計算和紀錄砍掉..回復時間未知)\n" +
     "   -h       :help\n" +
     "   -b       :bug mode\n" +
-    "   -t       :測試機率用(抽10萬抽，不附圖)\n" +
+    "   -t       :測試機率用(抽" + addThousandComma(testModeCount) + "抽，不附圖)\n" +
     "   -c choose:數字, 選一個卡池1~" + drawJson.cardpool.length + "(default: " + drawJson.cardpool.length + "號卡池)\n" +
     "   -n num   :數字, 數量1~10(default: 10)\n" +
     "   -i info  :卡池資訊\n" +
@@ -350,4 +351,14 @@ function ShowCardPoolInfo(message, arg) {
   }
   info += "```";
   message.channel.send(info);
+}
+
+function addThousandComma(number) {
+ let num = number.toString();
+ let pattern = /(-?\d+)(\d{3})/;
+  
+ while(pattern.test(num))
+  num = num.replace(pattern, "$1,$2");
+  
+ return num;
 }
