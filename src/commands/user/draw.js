@@ -69,6 +69,7 @@ function Help(message) {
     "Example:\n" +
     "   draw\n" +
     "   draw -b -c 3\n" +
+    "   draw -t -c 2\n" +
     "   draw -n 7 -c 3\n" +
     "   draw -i 4\n" +
     "   draw -c 1\n" +
