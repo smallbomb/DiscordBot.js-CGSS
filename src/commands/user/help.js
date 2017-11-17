@@ -11,6 +11,7 @@ module.exports = function (client, message) {
       helpstr += "      " + newArray[i].data[j].commandname + "\n";
     }
   }
+  helpstr += "\nBUG回報: https://github.com/smallbomb/DiscordBot.js-CGSS/issues\n";
   helpstr += "```";
   message.author.send(helpstr);
 };
