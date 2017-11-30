@@ -5,6 +5,7 @@ const path_root = process.cwd();
 const drawJson = requireUncached(path_root + "/src/data/config_json/draw.json");
 const basicbase = 100 // lowest 0.0x%
 const testModeCount = 1000000;
+
 module.exports = function (client, message) {
   let card = [];
   let cardpool = undefined;
@@ -355,11 +356,11 @@ function ShowCardPoolInfo(message, arg) {
 }
 
 function addThousandComma(number) {
- let num = number.toString();
- let pattern = /(-?\d+)(\d{3})/;
-  
- while(pattern.test(num))
-  num = num.replace(pattern, "$1,$2");
-  
- return num;
+  let num = number.toString();
+  let pattern = /(-?\d+)(\d{3})/;
+
+  while (pattern.test(num))
+    num = num.replace(pattern, "$1,$2");
+
+  return num;
 }
