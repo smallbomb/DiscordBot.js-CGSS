@@ -281,8 +281,9 @@ function DrawOtionParser(message) {
 function ShowCardPoolInfo(message, arg) {
   let info = "```\n";
   if (arg.toLowerCase() === "all") {
-    for (let i = 0; i < drawJson.cardpool.length; i++) {
-      if (i !== 0) info += "\n";
+    for (let i = drawJson.cardpool.length - 5; i < drawJson.cardpool.length; i++) {
+      if (i !== drawJson.cardpool.length - 5) info += "\n";
+      else info += "... \n... \n\n";
       // index
       info += "卡池編號: " + drawJson.cardpool[i].index + "\n";
       // name
