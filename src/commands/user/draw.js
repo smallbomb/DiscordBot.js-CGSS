@@ -95,11 +95,11 @@ function GetACard(cardpool, str) {
     prob = Math.floor(Math.random() * (cardpool.SSRprob + cardpool.SRprob + cardpool.Rprob)) + 1;
    
   if (prob <= cardpool.SSRprob) {
-    if (prob <= cardpool.bo_SSRprob * cardpool.bo_SSR.length) {
+    if (prob <= cardpool.bo_SSRprob) {
       Card.type = "bounsSSR";
       Card.name = cardpool.bo_SSR[Math.floor(Math.random() * cardpool.bo_SSR.length)]; // bounsSSR
     }
-    else if (cardpool.sp_bo_SSR !== undefined && prob <= cardpool.bo_SSRprob * cardpool.bo_SSR.length + cardpool.bo_SSRprob/2 * cardpool.sp_bo_SSR.length) {
+    else if (cardpool.sp_bo_SSR !== undefined && prob <= cardpool.bo_SSRprob + cardpool.bo_SSRprob / cardpool.bo_SSR.length / 2 * cardpool.sp_bo_SSR.length) { // temp formula
       Card.type = "double_bounsSSR";
       Card.name = cardpool.sp_bo_SSR[Math.floor(Math.random() * cardpool.sp_bo_SSR.length)]; // DoubleBo_SSR, only double special pool
     }
