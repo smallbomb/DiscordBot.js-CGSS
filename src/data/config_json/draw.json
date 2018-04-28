@@ -331,6 +331,20 @@
       "date": "2018/04/23",
       "bounsSSRprob": "0.75%",
       "bounsSRprob": "2.4%"
+    },
+    {
+      "index": 48,
+      "type": "Special",
+      "date": "2018/04/27",
+      "bounsSSRprob": "0.8%",
+      "bounsSRprob": "2.4%"
+    },
+    {
+      "index": 49,
+      "type": "Special",
+      "date": "2018/04/27",
+      "bounsSSRprob": "0.8%",
+      "bounsSRprob": "2.4%"
     }
   ]
 }
