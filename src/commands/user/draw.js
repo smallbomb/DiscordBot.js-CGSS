@@ -3,7 +3,7 @@ const optset = require('getopt-c');
 const images = require('images');
 const path_root = process.cwd();
 const drawJson = requireUncached(path_root + "/src/data/config_json/draw.json");
-const basicbase = 100 // lowest 0.0x%
+const basicbase = 1000 // lowest 0.0x%
 const testModeCount = 1000000;
 
 module.exports = function (client, message) {
@@ -99,7 +99,7 @@ function GetACard(cardpool, str) {
       Card.type = "bounsSSR";
       Card.name = cardpool.bo_SSR[Math.floor(Math.random() * cardpool.bo_SSR.length)]; // bounsSSR
     }
-    else if (cardpool.sp_bo_SSR !== undefined && prob <= cardpool.bo_SSRprob + cardpool.bo_SSRprob / cardpool.bo_SSR.length / 2 * cardpool.sp_bo_SSR.length) { // temp formula
+    else if (cardpool.sp_bo_SSR !== undefined && prob <= 1.5 * basicbase - cardpool.bo_SSRprob) { // temp formula
       Card.type = "double_bounsSSR";
       Card.name = cardpool.sp_bo_SSR[Math.floor(Math.random() * cardpool.sp_bo_SSR.length)]; // DoubleBo_SSR, only double special pool
     }

@@ -345,6 +345,14 @@
       "date": "2018/04/27",
       "bounsSSRprob": "0.8%",
       "bounsSRprob": "2.4%"
+    },
+    {
+      "index": 50,
+      "type": "DoubleSpecial",
+      "name": "[幻想と神話の紡ぎ手]神崎蘭子",
+      "date": "2018/04/27",
+      "bounsSSRprob": "1.125%",
+      "bounsSRprob": "0%"
     }
   ]
 }
