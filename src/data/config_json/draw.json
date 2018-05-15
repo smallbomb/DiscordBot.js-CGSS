@@ -360,6 +360,14 @@
       "date": "2018/05/03",
       "bounsSSRprob": "0.8%",
       "bounsSRprob": "2.4%"
+    },
+    {
+      "index": 52,
+      "type": "Normal",
+      "date": "2018/05/14",
+      "bounsSSRprob": "0.75%",
+      "bounsSRprob": "2.4%"
     }
+
   ]
 }
