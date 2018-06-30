@@ -437,6 +437,14 @@
       "date": "2018/06/25",
       "bounsSSRprob": "0.8%",
       "bounsSRprob": "2.4%"
+    },
+    {
+      "index": 63,
+      "type": "DoubleSpecial",
+      "name": "[うたかたの結び手]依田芳乃",
+      "date": "2018/06/30",
+      "bounsSSRprob": "1.125%",
+      "bounsSRprob": "0%"
     }
   ]
 }
