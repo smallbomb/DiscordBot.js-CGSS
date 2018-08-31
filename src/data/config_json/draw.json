@@ -1,4 +1,9 @@
 {
+  "_comment": {
+    "1": "1. 放特殊數量的當期灰限方式計算。假設分 *當期灰限機率, *非當期灰限但有加成機率",
+    "2": "2. bounsSSRprob=當期灰限機率(Prob) * 當期灰限數量(N) + 非當期灰限但有加成機率(old_Prob) * 非當期灰限但有加成數量(old_N)",
+    "3": "3. result('每一種'的'當期灰限'應該要放幾張到images/bounsSSR資料夾裡面) = Prob / old_Prob / N"
+  },
   "SSRprob": "3.0%",
   "SRprob": "12.0%",
   "Rprob": "85.0%",
@@ -529,6 +534,14 @@
       "date": "2018/08/26",
       "bounsSSRprob": "0.8%",
       "bounsSRprob": "2.4%"
+    },
+    {
+      "index": 76,
+      "type": "DoubleSpecial",
+      "name": "[一陣の情熱]神谷奈緒, [憧れへのステップ]乙倉悠貴",
+      "date": "2018/08/31",
+      "bounsSSRprob": "1.372%",
+      "bounsSRprob": "0%"
     }
   ]
 }
