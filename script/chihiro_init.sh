@@ -11,6 +11,7 @@ stop() {
   pid=$(cat ./chihiro_monitor.pid)
   if [ -n "$pid" ]; then
     kill -9 $pid
+    rm -f ./chihiro_monitor.pid
   fi
   pid=$(ps aux | grep 'node .' | grep -v grep | awk '{print $2}')
   if [ -n "$pid" ]; then
@@ -19,12 +20,13 @@ stop() {
 }
 
 start() {
-  if [ -f "./chihiro_monitor.pid" ]; then
+  pid=$(cat ./chihiro_monitor.pid)
+  procss=$(ps aux | grep $pid | grep -v grep)
+  if [ -n "$procss" ]; then
     stop
   fi
   at now -f ./chihiro_monitor.sh
 }
-
 
 if [ "$cmd" = "start" ]; then
   start
