@@ -22,7 +22,7 @@ stop() {
 
 start() {
   pid=$(cat $dir_path/../chihiro_monitor.pid 2>/dev/null)
-  [-n "$pid" ] && procss=$(ps aux | grep $pid | grep -v grep)
+  [ -n "$pid" ] && procss=$(ps aux | grep $pid | grep -v grep)
   if [ -n "$procss" ]; then
     stop
   fi
