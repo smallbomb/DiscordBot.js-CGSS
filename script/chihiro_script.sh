@@ -1,4 +1,5 @@
 #!/bin/sh
-dir_path=$(dirname $0)
+SCRIPT=$(readlink -f "$0")
+dir_path=$(dirname "$SCRIPT")
 cd $dir_path/..
 node .
