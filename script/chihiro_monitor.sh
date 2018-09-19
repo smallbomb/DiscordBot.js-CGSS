@@ -2,7 +2,7 @@
 mem_threshold=30
 SCRIPT=$(readlink -f "$0")
 dir_path=$(dirname "$SCRIPT")
-echo $$ > $dir_path/chihiro_monitor.pid
+echo $$ > $dir_path/../chihiro_monitor.pid
 while true
 do
   git pull
