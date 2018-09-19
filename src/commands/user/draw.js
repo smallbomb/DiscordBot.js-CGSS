@@ -11,7 +11,6 @@ module.exports = function (client, message) {
   let cardpool = undefined;
   let mergeImageBuffer = undefined;
   let userOpt = undefined;
-  let count = 0;
   if ((userOpt = DrawOtionParser(message)) === undefined) return;
 
   cardpool = setCardPool(userOpt.pool_index);
