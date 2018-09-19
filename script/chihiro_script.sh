@@ -1,4 +1,4 @@
 #!/bin/sh
-
-cd ..
+dir_path=$(dirname $0)
+cd $dir_path/..
 node .
