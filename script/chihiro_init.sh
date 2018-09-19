@@ -20,7 +20,6 @@ stop() {
 
 start() {
   if [ -f "./chihiro_monitor.pid" ]; then
-    echo "file exist"
     stop
   fi
   at now -f ./chihiro_monitor.sh
