@@ -563,6 +563,13 @@
       "date": "2018/09/19",
       "bounsSSRprob": "0.75%",
       "bounsSRprob": "2.4%"
+    },
+    {
+      "index": 80,
+      "type": "Normal",
+      "date": "2018/09/22",
+      "bounsSSRprob": "0.75%",
+      "bounsSRprob": "2.4%"
     }
   ]
 }
