@@ -2,7 +2,8 @@
   "_comment": {
     "1": "1. 放特殊數量的當期灰限方式計算。假設分 *當期灰限機率, *非當期灰限但有加成機率",
     "2": "2. bounsSSRprob=當期灰限機率(Prob) * 當期灰限數量(N) + 非當期灰限但有加成機率(old_Prob) * 非當期灰限但有加成數量(old_N)",
-    "3": "3. result('每一種'的'當期灰限'應該要放幾張到images/bounsSSR資料夾裡面) = Prob / old_Prob / N"
+    "3": "3. result('每一種'的'當期灰限'應該要放幾張到images/bounsSSR資料夾裡面) = Prob / old_Prob / N",
+    "4": "4. 驗證: Prob = bounsSSRprob * (result/result+old_N)?"
   },
   "SSRprob": "3.0%",
   "SRprob": "12.0%",
@@ -598,6 +599,14 @@
       "date": "2018/10/23",
       "bounsSSRprob": "0.75%",
       "bounsSRprob": "2.4%"
+    },
+    {
+      "index": 85,
+      "type": "DoubleSpecial",
+      "name": "[オーダーメイド・はぁと]佐藤心",
+      "date": "2018/10/31",
+      "bounsSSRprob": "1.122%",
+      "bounsSRprob": "0%"
     }
   ]
 }
