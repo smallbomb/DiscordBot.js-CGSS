@@ -607,6 +607,13 @@
       "date": "2018/10/31",
       "bounsSSRprob": "1.122%",
       "bounsSRprob": "0%"
+    },
+    {
+      "index": 86,
+      "type": "Special",
+      "date": "2018/11/03",
+      "bounsSSRprob": "0.8%",
+      "bounsSRprob": "2.4%"
     }
   ]
 }
